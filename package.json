@@ -1,0 +1,25 @@
+{
+  "name": "noteTakerExpress",
+  "version": "1.0.0",
+  "description": "The application’s front end has already been created. It's your job to build the back end, connect the two, and then deploy the entire application to Heroku.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meck512/noteTakerExpress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meck512/noteTakerExpress/issues"
+  },
+  "homepage": "https://github.com/meck512/noteTakerExpress#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
