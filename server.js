@@ -1,26 +1,22 @@
 const express = require('express');
-const app = express();
 
+const htmlRoutes = require('./routes/htmlRoutes')
+const apiRoutes = require("./routes/apiRoutes")
 // PORT variable
 const PORT = process.env.PORT || 8080;
 
+const app = express();
 
+// parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
 
-// HTML ROUTE
-const path = require('path');
-
-module.exports = function(app) {
-  app.get('/notes', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/notes.html'));
-  });
-
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-  });
-};
-
+ app.use(express.static('public'));
+ app.use('/api', apiRoutes)
+ app.use("/", htmlRoutes)
 
 // server listen
 app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
+    console.log(`API server now on port http://localhost:${PORT}!`);
   });
