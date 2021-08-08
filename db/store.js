@@ -3,7 +3,7 @@ const fs = require('fs');
 const util = require('util');
 const { v4: uuidv4 } = require('uuid');
 const read = util.promisify(fs.readFile);
-const write = util.promisify(fs.readFile);
+const write = util.promisify(fs.writeFile);
 
 
 class Store {
@@ -15,26 +15,26 @@ class Store {
     }
     getNotes() {
         return this.readNotes().then(notes => {
-            let parseNote;
+            let storedNotes;
             try {
-                parseNote = [].concat(JSON.parse(notes))
-                console.log(parseNote)
+                storedNotes = [].concat(JSON.parse(notes))
             } catch (error) {
-                parseNote = []
+                storedNotes = []
             }
+            return storedNotes
         })
     }
-    addNotes(note){
-        const {title, text} = note;
+    // Unique ID per note
+    addNotes(note) {
+        const { title, text } = note;
         if (!title || !text) {
-            throw new Error("both title and text need to be filled in!");
+            throw new Error("Please fill in all areas before saving");
         }
-        const newNotes = {title, text, id: uuidv4()}
+        const newNote = { title, text, id: uuidv4() }
         return this.getNotes()
-            .then(notes => [...notes, newNotes])
-            .then(updateNote => this.write(updateNote))
-            .then(() => newNotes)  
-
+            .then(notes => [...notes, newNote])
+            .then(updateNote => this.writeNotes(updateNote))
+            .then(() => newNote)
     }
 }
 module.exports = new Store();
