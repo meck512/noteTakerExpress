@@ -6,6 +6,7 @@ const router = require('express').Router()
     res.sendFile(path.join(__dirname, '../public/notes.html'));
   });
 
+  
   // GET * should return the index.html file
   router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));

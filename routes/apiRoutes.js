@@ -21,5 +21,30 @@ router.post('/notes', (req, res) => {
         .catch((err) => res.status(500).json(err));
 });
 
+// Delete Bonus:
+
+router.delete('/api/notes/:id', (req, res) => {
+    const choiceDelete = req.params.id;
+    
+    console.log(choiceDelete);
+
+    fs.readFile('./db/db.json', (err, data) => {
+        if (err) throw err;
+
+        dbData = JSON.parse(data);
+
+        const filterChoice = notes.filter(val => val.id !== choice);
+
+        console.log(dbData);
+
+        stringData = JSON.stringify(dbData);
+
+        fs.writeFile(notesDataFile, JSON.stringify(filterChoice, null, "\t")).then(() => {
+            res.json(filterChoice);
+        })
+    })
+});
+
+
 module.exports = router;
 
